@@ -1,5 +1,4 @@
-function removeNumber ( value) {
-    let array = [1,23,12,3,4,7,5,112];
+function removeNumber (array, value) {
     let cycle = 0;
     
     while (cycle < array.length) {
@@ -11,6 +10,4 @@ function removeNumber ( value) {
     }
     return array;
 }
-
-console.log(removeNumber(3));
-console.log(removeNumber(23));
+console.log(removeNumber([1,23,12,3,4,7,5,112], 1))
