@@ -1,11 +1,11 @@
-function checkPrime (number) {
+function checkPrime(number) {
     let cycle = 2;
-    
-    while (cycle < number / 2) {
+
+    while (cycle <= Math.sqrt(number)) {
         if (number % cycle === 0) {
             return false;
         }
-        cycle++
+        cycle++;
     }
     return true;
 }
@@ -13,4 +13,4 @@ function checkPrime (number) {
 console.log("Expexted: true, Result: " + checkPrime(7));
 console.log("Expexted: true, Result: " + checkPrime(17));
 console.log("Expexted: false, Result: " + checkPrime(26));
-console.log("Expexted: false, Result: " + checkPrime(17*13));
+console.log("Expexted: false, Result: " + checkPrime(17 * 13));
