@@ -37,4 +37,31 @@ function starSquare(num) {
     return finalResult;
 }
 
-console.log(starSquare(7));
+/**
+ * Vardan version
+ */
+function starSquare2(num) {
+    let reslult = "";
+    for (let i = 0; i < num; i++) {
+        for (let j = 0; j < num; j++) {
+            if (j === 0 || j === num - 1 || i === 0 || i === num - 1) {
+                reslult = reslult + "*";
+            } else {
+                reslult = reslult + " ";
+            }
+        }
+        reslult = reslult + "\n";
+    }
+    return reslult;
+}
+
+
+/**
+  ****
+  *  *
+  *  *
+  ****
+
+ */
+
+console.log(starSquare2(7));
