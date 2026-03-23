@@ -2,6 +2,8 @@ function triangle (number) {
     let cycle = 0;
     let basket = "";
     let z = 0;
+    let x = 1;
+
     while (cycle < number) {
         let space = 0;
         
@@ -11,8 +13,7 @@ function triangle (number) {
         }
         
         let stars = 0;
-        while (stars < z + 1) {
-            basket = basket + "*";
+        while (stars < x) {
             basket = basket + "*";
             stars++;
         }
@@ -20,6 +21,7 @@ function triangle (number) {
         basket = basket +  "\n";
         cycle++;
         z++
+        x = x + 2
     }
     return basket;
 }
