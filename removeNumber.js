@@ -1,7 +1,5 @@
 function removeNumber(array, value) {
-    let cycle = 0;
-
-    while (cycle < array.length) {
+    for (let cycle = 0 ;cycle < array.length;) {
         if (array[cycle] === value) {
             array.splice(cycle, 1);
         } else {

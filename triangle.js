@@ -1,25 +1,19 @@
 function triangle (number) {
-    let cycle = 0;
     let basket = "";
     let z = 0;
     let x = 1;
 
-    while (cycle < number) {
-        let space = 0;
+    for (let cycle = 0; cycle < number; cycle++) {
         
-        while (space < number - z) {
+        for (let space = 0; space < number - z; space++) {
             basket = basket + " "; 
-            space++;
         }
         
-        let stars = 0;
-        while (stars < x) {
+        for (let stars = 0; stars < x; stars++) {
             basket = basket + "*";
-            stars++;
         }
         
         basket = basket +  "\n";
-        cycle++;
         z++
         x = x + 2
     }

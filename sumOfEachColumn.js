@@ -2,34 +2,31 @@ let arr = [
   [7, 12, 3, 25, 9,],
   [14, 1, 18, 6, 20],
   [5, 11, 2, 30, 8],
-  [19, 4, 16, 10, 13,],
+  [19, 4, 16, 10, 13],
   [21, 15, 24, 17, 22]
 ];
 
-function checkArray () {
-    let check = arr[0].length
-    let cycle = 0 
-    while (cycle < arr.length) {
-        if (arr[cycle].length !== check) {
-            return false
+function checkArray (array) {
+    let check = array[0].length; 
+    for (let cycle = 0; cycle < array.length; cycle++) {
+        if (array[cycle].length !== check) {
+            return false;
         }
-        cycle++
     }
-    return true
+    return true;
 }
 
-function sumOfEachColumn () {
-    let tox = 0 
-    let result = ""
-
-    if (checkArray() === true) {
-        for (let pillar = 0; pillar < arr.length; pillar++) {
-        tox = 0
-        while (tox < arr.length) {
-            result = result + arr[tox][pillar] + " "
-            tox++
+function sumOfEachColumn (array) {
+    let result = "";
+    
+    if (checkArray(array) === true) {
+        for (let pillar = 0; pillar < array[0].length; pillar++) {
+            let box = 0;
+        
+            for (let tox = 0; tox < array.length; tox++) {
+            box = box + array[tox][pillar];
         }
-        result = result + "\n"
+        result = result + box + "\n"
         }
         return result
     } else {
@@ -39,4 +36,4 @@ function sumOfEachColumn () {
     
 }
 
-console.log(sumOfEachColumn())
+console.log(sumOfEachColumn(arr));

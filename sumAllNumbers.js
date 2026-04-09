@@ -6,17 +6,15 @@
   [21, 15, 24, 17, 22]
 ];
 
-function sumAllNumbers () {
+function sumAllNumbers (array) {
     let result = 0;
     
     for (let cycle = 0; cycle < arr.length; cycle++) {
-        let box = 0;
         for (let cycleNum2 = 0; cycleNum2 < arr[cycle].length; cycleNum2++) {
-            box = box + arr[cycle][cycleNum2]
+            result = result + array[cycle][cycleNum2]
         }
-        result = result + box;
     }
     return result
 }
 
-console.log(sumAllNumbers())
+console.log(sumAllNumbers(arr))

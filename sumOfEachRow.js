@@ -6,17 +6,17 @@ let arr = [
   [21, 15, 24, 17, 22]
 ];
 
-function sumOfEachRow () {
+function sumOfEachRow (array) {
     let result = "";
     
-    for (let cycle = 0; cycle < arr.length; cycle++) {
+    for (let cycle = 0; cycle < array.length; cycle++) {
         let box = 0;
-        for(let cycleNum2 = 0; cycleNum2 < arr[cycle].length; cycleNum2++) {
-            box = box + arr[cycle][cycleNum2];
+        for (let cycleNum2 = 0; cycleNum2 < array[cycle].length; cycleNum2++) {
+            box = box + array[cycle][cycleNum2];
         }
         result = result + box + "\n";
     }
     return result;
 }
 
-console.log(sumOfEachRow())
+console.log(sumOfEachRow(arr));

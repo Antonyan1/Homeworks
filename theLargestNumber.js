@@ -6,18 +6,16 @@ let arr = [
   [21, 15, 24, 17, 22]
 ];
 
-function largestNumber() {
+function largestNumber(array) {
     let result = 0;
 
-    for (let cycle = 0; cycle < arr.length; cycle++) {
-        let cycleNumber2 = 0;
-        let box = arr[cycle][0];
+    for (let cycle = 0; cycle < array.length; cycle++) {
+        let box = array[cycle][0];
 
-        while (cycleNumber2 < arr[cycle].length) {
-            if (arr[cycle][cycleNumber2] > box) {
-                box = arr[cycle][cycleNumber2]
+        for (let cycleNumber2 = 0; cycleNumber2 < array[cycle].length; cycleNumber2++) {
+            if (array[cycle][cycleNumber2] > box) {
+                box = array[cycle][cycleNumber2]
             }
-            cycleNumber2++
         }
         if (box > result) {
             result = box
@@ -26,4 +24,4 @@ function largestNumber() {
     return result
 }
 
-console.log(largestNumber())
+console.log(largestNumber(arr))

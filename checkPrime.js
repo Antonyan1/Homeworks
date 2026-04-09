@@ -1,11 +1,8 @@
 function checkPrime(number) {
-    let cycle = 2;
-
-    while (cycle <= Math.sqrt(number)) {
+    for (let cycle = 2; cycle <= Math.sqrt(number); cycle++) {
         if (number % cycle === 0) {
             return false;
         }
-        cycle++;
     }
     return true;
 }

@@ -1,38 +1,33 @@
 function starSquare(num) {
-    let starQuantity = 0;
     let upperPart = "";
     let middlePart = "";
     let lowerPart = "";
-    let rowQuantity = 0;
     
     let finalResult = "";
     
-    while (starQuantity < num) {
+    for (let starQuantity = 0; starQuantity < num; starQuantity++) {
         upperPart = upperPart + "*";
-        starQuantity++;
     }
     finalResult = finalResult + upperPart + "\n";
     
-    while (rowQuantity < num - 2) {
+    for (let rowQuantity = 0; rowQuantity < num - 2; rowQuantity++) {
         middlePart = "";
         middlePart = middlePart + "*";
         
-        let spaceQuantity = 0;
-        while (spaceQuantity < num - 2) {
+        for (let spaceQuantity = 0; spaceQuantity < num - 2; spaceQuantity++) {
             middlePart = middlePart + " ";
-            spaceQuantity++
+            
         }
         middlePart = middlePart + "*";
 
         finalResult = finalResult + middlePart + "\n";
-        rowQuantity++
     }
 
     starQuantity = 0;
-    while (starQuantity < num) {
+    for (;starQuantity < num; starQuantity++) {
         lowerPart = lowerPart + "*";
-        starQuantity++
     }
+     
     finalResult = finalResult + lowerPart;
     return finalResult;
 }
