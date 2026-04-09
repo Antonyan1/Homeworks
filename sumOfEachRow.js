@@ -7,15 +7,14 @@ let arr = [
 ];
 
 function sumOfEachRow () {
-    let box = 0;
     let result = "";
-
+    
     for (let cycle = 0; cycle < arr.length; cycle++) {
+        let box = 0;
         for(let cycleNum2 = 0; cycleNum2 < arr[cycle].length; cycleNum2++) {
             box = box + arr[cycle][cycleNum2];
         }
         result = result + box + "\n";
-        box = 0;
     }
     return result;
 }

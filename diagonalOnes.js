@@ -17,7 +17,7 @@ function diagonalOnes (number) {
     return result
 }
 
-console.log (diagonalOnes(4))
+console.log (diagonalOnes(6))
 
 // [
 //   [1,0,0,0],
