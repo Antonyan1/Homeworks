@@ -10,8 +10,9 @@ function sumOfEachRow (array) {
     let result = "";
     
     for (let cycle = 0; cycle < array.length; cycle++) {
-        let box = 0;
+        
         for (let cycleNum2 = 0; cycleNum2 < array[cycle].length; cycleNum2++) {
+            let box = 0;
             box = box + array[cycle][cycleNum2];
         }
         result = result + box + "\n";
