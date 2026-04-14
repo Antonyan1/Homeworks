@@ -1,30 +1,38 @@
 function spiralMatrixExercise (number) {
     let array = [];
-    let numberCycle = 1
-
+    let numbersCycle = 1;
     for (let rowsCycle = 0; rowsCycle < number; rowsCycle++) {
         array.push([]);
         for (let numbersCycle = 0; numbersCycle < number; numbersCycle++) {
             array[rowsCycle].push(0);
         }
     }
-        for (let rightCycle = 0; rightCycle < number; rightCycle++) {
-            array[0][rightCycle] = numberCycle;
-            numberCycle++
+    for (let cycle = 0; cycle < number; cycle++) {
+        for (let upper = 0; upper < number ; upper++) {
+            if (array[cycle][upper] === 0) {
+                array[cycle][upper] = numbersCycle;
+                numbersCycle++;
+            }
         }
-        for (let downCycle = 1; downCycle < number; downCycle++) {
-            array[downCycle][number - 1] = numberCycle
-            numberCycle++
+        for (let rightColumnCycle = 0; rightColumnCycle < number; rightColumnCycle++) {
+            if (array[rightColumnCycle][number - 1 - cycle] === 0) {
+                array[rightColumnCycle][number - 1 - cycle] = numbersCycle;
+                numbersCycle++;
+            }
         }
-        for (let leftCycle = number - 2; leftCycle >= 0; leftCycle--) {
-            array[number - 1][leftCycle] = numberCycle 
-            numberCycle++;
+        for (let lower = number - 2; lower >= 0; lower--) {
+            if (array[number - 1][lower] === 0) {
+                array[number - 1][lower] = numbersCycle; 
+                numbersCycle++;
+            }
         }
-        for (let upCycle = number - 2; upCycle > 0; upCycle--) {
-            array[upCycle][0] = numberCycle 
-            numberCycle++
+        for (let leftColumnCycle = number - 2; leftColumnCycle > 0; leftColumnCycle--) {
+            if (array[leftColumnCycle][0] === 0) {
+                array[leftColumnCycle][0] = numbersCycle;
+                numbersCycle++;
+            }
         }
-        
+    }
     return array;
 }
 
