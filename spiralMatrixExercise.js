@@ -36,7 +36,7 @@ function spiralMatrixExercise (number) {
     return array;
 }
 
-console.log(spiralMatrixExercise(5))
+console.log(spiralMatrixExercise(6))
 
 // [
 //   [ 0, 0, 0, 0, 0 ],
