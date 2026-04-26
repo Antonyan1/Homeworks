@@ -21,4 +21,4 @@ function pascalsTriangle (number) {
     return arr;
 }
 
-console.log(pascalsTriangle(5));
+console.log(pascalsTriangle(6));

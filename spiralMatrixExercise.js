@@ -8,27 +8,27 @@ function spiralMatrixExercise (number) {
         }
     }
     for (let cycle = 0; cycle < number; cycle++) {
-        for (let upper = 0; upper < number ; upper++) {
+        for (let upper = 0 + cycle; upper < number ; upper++) {
             if (array[cycle][upper] === 0) {
                 array[cycle][upper] = numbersCycle;
                 numbersCycle++;
             }
         }
-        for (let rightColumnCycle = 0; rightColumnCycle < number; rightColumnCycle++) {
+        for (let rightColumnCycle = 0 + cycle; rightColumnCycle < number; rightColumnCycle++) {
             if (array[rightColumnCycle][number - 1 - cycle] === 0) {
                 array[rightColumnCycle][number - 1 - cycle] = numbersCycle;
                 numbersCycle++;
             }
         }
-        for (let lower = number - 2; lower >= 0; lower--) {
-            if (array[number - 1][lower] === 0) {
-                array[number - 1][lower] = numbersCycle; 
+        for (let lower = number - 1 - cycle; lower >= 0; lower--) {
+            if (array[number - 1 - cycle][lower] === 0) {
+                array[number - 1 - cycle][lower] = numbersCycle; 
                 numbersCycle++;
             }
         }
-        for (let leftColumnCycle = number - 2; leftColumnCycle > 0; leftColumnCycle--) {
-            if (array[leftColumnCycle][0] === 0) {
-                array[leftColumnCycle][0] = numbersCycle;
+        for (let leftColumnCycle = number - 1 - cycle; leftColumnCycle > 0; leftColumnCycle--) {
+            if (array[leftColumnCycle][cycle] === 0) {
+                array[leftColumnCycle][cycle] = numbersCycle;
                 numbersCycle++;
             }
         }
@@ -36,7 +36,7 @@ function spiralMatrixExercise (number) {
     return array;
 }
 
-console.log(spiralMatrixExercise(6))
+console.log(spiralMatrixExercise(5))
 
 // [
 //   [ 0, 0, 0, 0, 0 ],
