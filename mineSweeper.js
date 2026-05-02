@@ -27,6 +27,55 @@ function mineSweeper (rows, cols, mines) {
             minefield[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)] = '*'
         }
     }
+
+    for (let rowsCycle = 0; rowsCycle < rows; rowsCycle++) {
+        for (let colsCycle = 0; colsCycle < cols; colsCycle++) {
+            let indexBox = 0
+            if (minefield[rowsCycle][colsCycle] !== "*") {
+                if (minefield[rowsCycle - 1][colsCycle - 1] >= 0) {
+                    if (minefield[rowsCycle - 1][colsCycle - 1] === "*") {
+                    indexBox++
+                    }    
+                }
+                if (minefield[rowsCycle - 1][colsCycle] >= 0) {
+                    if (minefield[rowsCycle - 1][colsCycle] === "*") {
+                    indexBox++
+                    }    
+                }
+                if (minefield[rowsCycle - 1][colsCycle + 1] >= 0) {
+                    if (minefield[rowsCycle - 1][colsCycle + 1] === "*") {
+                    indexBox++
+                    }    
+                }
+                if (minefield[rowsCycle][colsCycle - 1] >= 0) {
+                    if (minefield[rowsCycle][colsCycle - 1] === "*") {
+                    indexBox++
+                    }    
+                }
+                if (minefield[rowsCycle][colsCycle + 1] >= 0) {
+                    if (minefield[rowsCycle][colsCycle + 1] === "*") {
+                    indexBox++
+                    }  
+                }
+                if (minefield[rowsCycle + 1][colsCycle - 1] >= 0) {
+                    if (minefield[rowsCycle + 1][colsCycle - 1] === "*") {
+                    indexBox++
+                    } 
+                }
+                if (minefield[rowsCycle + 1][colsCycle + 1] >= 0) {
+                    if (minefield[rowsCycle + 1][colsCycle + 1] === "*") {
+                    indexBox++
+                    } 
+                }
+                if (minefield[rowsCycle + 1][colsCycle] >= 0) {
+                    if (minefield[rowsCycle + 1][colsCycle] === "*") {
+                    indexBox++
+                    } 
+                }
+                minefield[rowsCycle][colsCycle] = indexBox
+            }
+        }
+    }
         
     return minefield;
 }
