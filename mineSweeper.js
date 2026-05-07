@@ -31,49 +31,22 @@ function mineSweeper (rows, cols, mines) {
     for (let rowsCycle = 0; rowsCycle < rows; rowsCycle++) {
         for (let colsCycle = 0; colsCycle < cols; colsCycle++) {
             let indexBox = 0
-            if (minefield[rowsCycle][colsCycle] !== "*") {
-                if (minefield[rowsCycle - 1][colsCycle - 1] >= 0) {
-                    if (minefield[rowsCycle - 1][colsCycle - 1] === "*") {
-                    indexBox++
-                    }    
-                }
-                if (minefield[rowsCycle - 1][colsCycle] >= 0) {
-                    if (minefield[rowsCycle - 1][colsCycle] === "*") {
-                    indexBox++
-                    }    
-                }
-                if (minefield[rowsCycle - 1][colsCycle + 1] >= 0) {
-                    if (minefield[rowsCycle - 1][colsCycle + 1] === "*") {
-                    indexBox++
-                    }    
-                }
-                if (minefield[rowsCycle][colsCycle - 1] >= 0) {
-                    if (minefield[rowsCycle][colsCycle - 1] === "*") {
-                    indexBox++
-                    }    
-                }
-                if (minefield[rowsCycle][colsCycle + 1] >= 0) {
-                    if (minefield[rowsCycle][colsCycle + 1] === "*") {
-                    indexBox++
-                    }  
-                }
-                if (minefield[rowsCycle + 1][colsCycle - 1] >= 0) {
-                    if (minefield[rowsCycle + 1][colsCycle - 1] === "*") {
-                    indexBox++
-                    } 
-                }
-                if (minefield[rowsCycle + 1][colsCycle + 1] >= 0) {
-                    if (minefield[rowsCycle + 1][colsCycle + 1] === "*") {
-                    indexBox++
-                    } 
-                }
-                if (minefield[rowsCycle + 1][colsCycle] >= 0) {
-                    if (minefield[rowsCycle + 1][colsCycle] === "*") {
-                    indexBox++
-                    } 
-                }
-                minefield[rowsCycle][colsCycle] = indexBox
+
+            if(minefield[rowsCycle][colsCycle] !== '*') {
+                for (let i = rowsCycle - 1; i <= rowsCycle + 1; i++) {
+                    for (let j = colsCycle - 1; j <= colsCycle + 1; j++) {
+                        if (i >= 0 && j >= 0 && i < minefield.length && j < minefield[i].length) {
+                            if (!(i === rowsCycle && j === colsCycle)) {
+                                if (minefield[i][j] === '*') {
+                                    indexBox++;
+                                }
+                            }
+                        }
+                    }
+                }   
+                minefield[rowsCycle][colsCycle] = indexBox;
             }
+            
         }
     }
         
