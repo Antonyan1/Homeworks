@@ -1,33 +1,25 @@
 function mineSweeper (rows, cols, mines) {
     let minefield = [];
+    if (mines > rows * cols) {
+        return "there too many mines"
+    }
     for (let mapCycle = 0; mapCycle < rows; mapCycle++) {
         minefield.push ([]);
         for (let colsCycle = 0; colsCycle < cols; colsCycle++) {
             minefield[mapCycle].push(0);
         }
     }
-
-    for (let fillingMines = 0; fillingMines < mines; fillingMines++) {
-        minefield[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)] = '*'
-    }
-
-    let box = 0;
-    while (true) {
-        box = 0
-        for (let checkRows = 0; checkRows < rows; checkRows++) {
-            for (let checkingIndex = 0; checkingIndex < cols; checkingIndex++) {
-                if (minefield[checkRows][checkingIndex] === "*") {
-                    box++;
-                }
-            }
-        }   
-        if (box === mines) {
-            break
-        } else {
-            minefield[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)] = '*'
+    
+    let minesBox = 0
+    while (minesBox < mines) {
+        let r = Math.floor(Math.random() * rows);
+        let c = Math.floor(Math.random() * cols);
+        if (minefield[r][c] !== "*") {
+        minefield[r][c] = "*"
+            minesBox++
         }
     }
-
+    
     for (let rowsCycle = 0; rowsCycle < rows; rowsCycle++) {
         for (let colsCycle = 0; colsCycle < cols; colsCycle++) {
             let indexBox = 0
@@ -44,12 +36,12 @@ function mineSweeper (rows, cols, mines) {
                         }
                     }
                 }   
-                minefield[rowsCycle][colsCycle] = indexBox;
+            minefield[rowsCycle][colsCycle] = indexBox;
             }
-            
+        
         }
     }
-        
+
     return minefield;
 }
 

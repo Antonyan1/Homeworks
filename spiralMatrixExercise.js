@@ -5,7 +5,7 @@ function spiralMatrixExercise (number) {
         array.push([]);
         for (let numbersCycle = 0; numbersCycle < number; numbersCycle++) {
             array[rowsCycle].push(0);
-        }
+        }   
     }
     for (let cycle = 0; cycle < number; cycle++) {
         for (let upper = 0 + cycle; upper < number ; upper++) {

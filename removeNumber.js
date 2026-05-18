@@ -8,4 +8,4 @@ function removeNumber(array, value) {
     }
     return array;
 }
-console.log(removeNumber([1, 23, 12, 3, 4, 7, 5, 112], 4))
+console.log(removeNumber([1, 23, 12, 3, 4, 7, 5, 112], 4));

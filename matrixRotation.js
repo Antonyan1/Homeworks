@@ -1,47 +1,36 @@
 function matrixRotation (number) {
+    let result = []
     let numbersCycle = 1;
 
-    let original = [];
+    let array = [];
     for (let matrixRotationCycle = 0; matrixRotationCycle < number; matrixRotationCycle++) {
-        original.push([]);
+        array.push([]);
         for (let fillingNumbersCycle = 0; fillingNumbersCycle < number; fillingNumbersCycle++) {
-            original[matrixRotationCycle].push(numbersCycle);
-            numbersCycle++
-        }
-
-    }
-    
-    let afterTransposeArray = [];
-    for (let afterTransposeCycle = 0; afterTransposeCycle < number; afterTransposeCycle++) {
-        afterTransposeArray.push([]);
-        for (let fillingZeroInAfterTransposeCycle = 0; fillingZeroInAfterTransposeCycle < number; fillingZeroInAfterTransposeCycle++) {
-            afterTransposeArray[afterTransposeCycle].push(0);
-        }
-    }
-    numbersCycle = 1;
-    for (let afterTransposeCycle = 0; afterTransposeCycle < number; afterTransposeCycle++) {
-        
-        for (let fillingNumbersInAfterTransposeCycle = 0; fillingNumbersInAfterTransposeCycle < number; fillingNumbersInAfterTransposeCycle++) {
-            afterTransposeArray[fillingNumbersInAfterTransposeCycle][afterTransposeCycle] = numbersCycle;
+            array[matrixRotationCycle].push(numbersCycle);
             numbersCycle++
         }
     }
+    result.push(structuredClone(array));
+
     
-    let rotatedClockwiseArray = structuredClone(afterTransposeArray)
-    let box
-    for (let rotatedClockwiseCycle = 0; rotatedClockwiseCycle < number; rotatedClockwiseCycle++) {
-        for (let rowCycle = 0; rowCycle < number / 2; rowCycle++) {
-            box = rotatedClockwiseArray[rotatedClockwiseCycle][rowCycle];
-            rotatedClockwiseArray[rotatedClockwiseCycle][rowCycle] = rotatedClockwiseArray[rotatedClockwiseCycle][number - rowCycle - 1];
-            rotatedClockwiseArray[rotatedClockwiseCycle][number - rowCycle - 1] = box
-            
+    for (let row = 0; row < number - 1; row++) {
+        for (let col = row + 1; col < number; col++) {
+            let box = array[row][col];
+            array[row][col] = array[col][row];
+            array[col][row] = box;
         }
     }
+    result.push(structuredClone(array));
 
-    let result = [];
-    result.push(original);
-    result.push(afterTransposeArray);
-    result.push(rotatedClockwiseArray)
+    for (let row = 0; row < number; row++) {
+        for (let col = 0; col < number / 2; col++) {
+            let box = array[row][col];
+            array[row][col] = array[row][number - col - 1];
+            array[row][number - col - 1] = box;
+        }    
+    }
+    result.push(structuredClone(array));
+
     return result;
 }
 
