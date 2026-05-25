@@ -1,5 +1,4 @@
-function matrixRotation (number) {
-    let result = []
+function returnJustArray (number) {
     let numbersCycle = 1;
 
     let array = [];
@@ -10,9 +9,11 @@ function matrixRotation (number) {
             numbersCycle++
         }
     }
-    result.push(structuredClone(array));
+    return array;
+}
+console.log(returnJustArray(4));
 
-    
+function matrixRotation (number, array) {
     for (let row = 0; row < number - 1; row++) {
         for (let col = row + 1; col < number; col++) {
             let box = array[row][col];
@@ -20,18 +21,23 @@ function matrixRotation (number) {
             array[col][row] = box;
         }
     }
-    result.push(structuredClone(array));
+    return array;    
+}
+let n = returnJustArray(4);
+matrixRotation(4, n);
+console.log (n);
 
+function rotate90 (number, array) {
     for (let row = 0; row < number; row++) {
         for (let col = 0; col < number / 2; col++) {
             let box = array[row][col];
             array[row][col] = array[row][number - col - 1];
             array[row][number - col - 1] = box;
-        }    
+            }    
     }
-    result.push(structuredClone(array));
-
-    return result;
+    return array
 }
 
-console.log(matrixRotation(4));
+let m = returnJustArray(4)
+rotate90(4, m);
+console.log (m);
