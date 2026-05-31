@@ -1,4 +1,0 @@
-function buildPascalRow (n) {
-    
-    
-}
