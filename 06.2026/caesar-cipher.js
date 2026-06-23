@@ -41,5 +41,5 @@ console.log(encode("Hello World!", 3))//  →  "Khoor Zruog!"
 console.log(decode("Khoor Zruog!", 3))//  →  "Hello World!"
 console.log(encode("xyz", 2))//           →  "zab"
 console.log(encode("ABC", 26))//          →  "ABC"
-console.log(decode("abc", 5))
+console.log(decode("abc", 5));
 console.log(encode("XYZ", 26));
