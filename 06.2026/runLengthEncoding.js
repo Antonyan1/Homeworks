@@ -18,25 +18,21 @@ function compress(str) {
 
 function decompress(str) {
     let result = "";
-    let numBox = 1;
-    for (let index = 0; index < str.length; index = index + 2) {
-        for (true) {
-            if (str[index] === str[index + 1]) {
-                numBox++
-            } else {break}
-        }
-        let numCycle = Number(str[index]);
-        let letter = str[index + 1];
-        for (let numQuantity = 0; numQuantity < numBox; numQuantity++) {
-            
+    let numBox = "";
+
+    for (let index = 0; index < str.length; index++) {
+        if (!isNaN(str[index])) {
+            numBox = numBox + str[index];
+        } else if (isNaN(str[index])) {
+            result = result + str[index].repeat(numBox);
+            numBox = "";
         }
     }
     return result;
 }
 
 console.log(compress("aaabbc"));
-console.log(decompress("34a2b1c"));
-
+console.log(decompress("12a6b21c"));
 let compressed = compress("aaaaaaaaaaaa"); // 12 букв 'a'
 console.log(compressed);
 console.log(decompress(compressed));
