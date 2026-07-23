@@ -1,0 +1,186 @@
+function createGrid (lines, columns) {
+    let grid = [];
+    for (let rows = 0; rows < lines; rows++) {
+        grid.push([]);
+        for (let cols = 0; cols < columns; cols++) {
+            grid[rows].push("");  
+        }
+    }
+    return grid;
+}
+
+function placeWord(grid ,words) {
+    let gridSize = grid[1].length * grid.length;
+    
+    let directions = {
+        up:        [-1,  0],
+        down:      [ 1,  0],
+        left:      [ 0, -1],
+        right:     [ 0,  1],
+        upLeft:    [-1, -1],
+        upRight:   [-1,  1],
+        downLeft:  [ 1, -1],
+        downRight: [ 1,  1]
+    };
+    for (let wordsInd = 0; wordsInd < words.length; wordsInd++) {
+        for (let attempts = 0; attempts < gridSize; attempts++) {
+            let randomRows = Math.floor(Math.random() * grid.length);
+            let randomColumns = Math.floor(Math.random() * grid[0].length);
+            let rndmDirections = Math.floor(Math.random() * directions.length);
+            let direction = directions[rndmDirections];
+            let checkingForSuitableSize = true;
+        
+            let currentRow = randomRows;
+            let currentCol = randomColumns;
+            if (direction === "up") {
+                for (let index = 0; index < words[wordsInd].length; index++) {
+                    if (checkingForSuitableSize === true) {
+                        if (grid[currentRow] !== undefined && grid[currentRow][currentCol] === "") {
+                            currentRow = currentRow - 1;
+                        } else {
+                            checkingForSuitableSize = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (direction === "down") {
+                for (let index = 0; index < words[wordsInd].length; index++) {
+                    if (checkingForSuitableSize === true) {
+                        if (grid[currentRow] !== undefined && grid[currentRow][currentCol] === "") {
+                            currentRow = currentRow + 1;
+                        } else {
+                            checkingForSuitableSize = false;
+                        }
+                    }
+                }
+            }
+            if (direction === "left") {
+                for (let index = 0; index < words[wordsInd].length; index++) {
+                    if (checkingForSuitableSize === true) {
+                        if (grid[currentRow] !== undefined && grid[currentRow][currentCol] === "") {
+                            currentCol = currentCol - 1;
+                        } else {
+                            checkingForSuitableSize = false;
+                        }
+                    }
+                }
+            }
+            if (direction === "right") {
+            for (let index = 0; index < words[wordsInd].length; index++) {
+                if (checkingForSuitableSize === true) {
+                    if (grid[currentRow] !== undefined && grid[currentRow][currentCol] === "") {
+                        currentCol = currentCol + 1;
+                    } else {
+                        checkingForSuitableSize = false;
+                    }
+                }
+            }
+            }
+            if (direction === "upLeft") {
+                for (let index = 0; index < words[wordsInd].length; index++) {
+                    if (checkingForSuitableSize === true) {
+                        if (grid[currentRow] !== undefined && grid[currentRow][currentCol] === "") {
+                            currentRow = currentRow - 1;
+                            currentCol = currentCol - 1;
+                        } else {
+                            checkingForSuitableSize = false; 
+                        }
+                    }
+                }
+            }
+            if (direction === "upRight") {
+                for (let index = 0; index < words[wordsInd].length; index++) {
+                    if (checkingForSuitableSize === true) {
+                        if (grid[currentRow] !== undefined && grid[currentRow][currentCol] === "") {
+                            currentRow = currentRow - 1;
+                            currentCol = currentCol + 1;
+                        } else { 
+                            checkingForSuitableSize = false; 
+                        }
+                    }
+                }
+            }
+            if (direction === "downLeft") {
+                for (let index = 0; index < words[wordsInd].length; index++) {
+                    if (checkingForSuitableSize === true) {
+                        if (grid[currentRow] !== undefined && grid[currentRow][currentCol] === "") {
+                            currentRow = currentRow + 1;
+                            currentCol = currentCol - 1;
+                        } else { 
+                            checkingForSuitableSize = false;
+                        }
+                    }
+                }
+            }
+            if (direction === "downRight") {
+                for (let index = 0; index < words[wordsInd].length; index++) {
+                    if (checkingForSuitableSize === true) {
+                        if (grid[currentRow] !== undefined && grid[currentRow][currentCol] === "") {
+                            currentRow = currentRow + 1;
+                            currentCol = currentCol + 1;
+                        } else {
+                            checkingForSuitableSize = false; 
+                        }
+                    }
+                }
+            }
+
+            if (checkingForSuitableSize === true) {
+                if (direction === "up") {
+                    for (let i = 0; i < words[wordsInd].length; i++) {
+                        grid[randomRows - i][randomColumns] = words[wordsInd][i];
+                    }
+                    break;
+                }
+                if (direction === "down") {
+                    for (let i = 0; i < words[wordsInd].length; i++) {
+                        grid[randomRows + i][randomColumns] = words[wordsInd][i];
+                    }
+                    break;
+                }
+                if (direction === "left") {
+                    for (let i = 0; i < words[wordsInd].length; i++) {
+                        grid[randomRows][randomColumns - i] = words[wordsInd][i];
+                    }
+                    break;
+                }
+                if (direction === "right") {
+                    for (let i = 0; i < words[wordsInd].length; i++) {
+                        grid[randomRows][randomColumns + i] = words[wordsInd][i];
+                    }
+                    break;
+                }
+                if (direction === "upLeft") {
+                    for (let i = 0; i < words[wordsInd].length; i++) {
+                        grid[randomRows - i][randomColumns - i] = words[wordsInd][i]; 
+                    }
+                    break;
+                }
+                if (direction === "upRight") {
+                    for (let i = 0; i < words[wordsInd].length; i++) {
+                        grid[randomRows - i][randomColumns + i] = words[wordsInd][i];
+                    }
+                    break;
+                } 
+                if (direction === "downLeft") {
+                    for (let i = 0; i < words[wordsInd].length; i++) {
+                        grid[randomRows + i][randomColumns - i] = words[wordsInd][i];
+                    }
+                    break;
+                }
+                if (direction === "downRight") {
+                    for (let i = 0; i < words[wordsInd].length; i++) {
+                        grid[randomRows + i][randomColumns + i] = words[wordsInd][i];
+                    }
+                    break;
+                } 
+            }
+        }
+    }
+    return grid;
+}
+
+let myGrid = createGrid(6, 6);
+placeWord(myGrid, ["array", "javaScript", "codding", "object", "function", "Math", "consoleLog"]);
+console.log(myGrid);
