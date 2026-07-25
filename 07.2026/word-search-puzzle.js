@@ -11,47 +11,25 @@ function createGrid (lines, columns) {
 
 function placeWord(grid ,words) {
     let gridSize = grid[1].length * grid.length;
-    let directions = ["up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight"]
+    let directions = {
+    up:        [-1,  0],
+    down:      [ 1,  0],
+    left:      [ 0, -1],
+    right:     [ 0,  1],
+    upLeft:    [-1, -1],
+    upRight:   [-1,  1],
+    downLeft:  [ 1, -1],
+    downRight: [ 1,  1]
+    };
+    
     for (let index = 0; index < words.length; index++) {
         for (let findDirection = 0; findDirection < gridSize; findDirection++) {
             let randomRow = Math.floor(Math.random() * grid.length);
             let randomCol = Math.floor(Math.random() * grid[1].length);
-            let rndmDirection = Math.floor(Math.random() * directions.length);
-            
-            let row = 0;
-            let col = 0;
-            if (directions[rndmDirection] === "up") {
-                row = -1;
-                col =  0;
-            }
-            if (directions[rndmDirection] === "down") {
-                row =  1;
-                col =  0;
-            }
-            if (directions[rndmDirection] === "left") {
-                row =  0;
-                col = -1;
-            }
-            if (directions[rndmDirection] === "right") {
-                row =  0;
-                col =  1;
-            }
-            if (directions[rndmDirection] === "upLeft") {
-                row = -1;
-                col = -1;
-            }
-            if (directions[rndmDirection] === "upRight") {
-                row = -1;
-                col =  1;
-            }
-            if (directions[rndmDirection] === "downLeft") {
-                row =  1;
-                col = -1;
-            }
-            if (directions[rndmDirection] === "downRight") {
-                row =  1;
-                col =  1;
-            }
+            let dirObject = Object.keys(directions);
+            let randomDirName = dirObject[Math.floor(Math.random() * dirObject.length)];
+
+            let [row, col] = directions[randomDirName];
             let weCanPlace = true;
 
             let nowsRow = randomRow;
@@ -83,47 +61,26 @@ function placeWord(grid ,words) {
     return grid;
 }
 function findWord(grid, word) {
-    let directions = ["up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight"];
-    let findWord = true;
+    let directions = {
+        up:        [-1,  0],
+        down:      [ 1,  0],
+        left:      [ 0, -1],
+        right:     [ 0,  1],
+        upLeft:    [-1, -1],
+        upRight:   [-1,  1],
+        downLeft:  [ 1, -1],
+        downRight: [ 1,  1]
+    };
+
+    let dirNames = Object.keys(directions);
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[row].length; col++) {        
             if(grid[row][col] === word[0]) {
-                for (let chooseDirection = 0; chooseDirection < directions.length; chooseDirection++) {
-                    let dirRow = 0;
-                    let dirCol = 0;
-
-                    if (directions[chooseDirection] === "up") {
-                        dirRow = -1;
-                        dirCol =  0;
-                    }
-                    if (directions[chooseDirection] === "down") {
-                        dirRow =  1;
-                        dirCol =  0;
-                    }
-                    if (directions[chooseDirection] === "left") {
-                        dirRow =  0;
-                        dirCol = -1;
-                    }
-                    if (directions[chooseDirection] === "right") {
-                        dirRow =  0;
-                        dirCol =  1;
-                    }
-                    if (directions[chooseDirection] === "upLeft") {
-                        dirRow = -1;
-                        dirCol = -1;
-                    }
-                    if (directions[chooseDirection] === "upRight") {
-                        dirRow = -1;
-                        dirCol =  1;
-                    }
-                    if (directions[chooseDirection] === "downLeft") {
-                        dirRow =  1;
-                        dirCol = -1;
-                    }
-                    if (directions[chooseDirection] === "downRight") {
-                        dirRow =  1;
-                        dirCol =  1;
-                    }
+                
+                for (let chooseDirection = 0; chooseDirection < dirNames.length; chooseDirection++) {
+                    let dirName = dirNames[chooseDirection];    
+                    
+                    let [dirRow, dirCol] = directions[dirName];
                     let weFound = true;
 
                     let nowsRow = row;
@@ -144,7 +101,7 @@ function findWord(grid, word) {
                         return {
                             found: true,
                             start: [row, col],
-                            direction: directions[chooseDirection]
+                            direction: dirName
                         };
                     }
                 }
@@ -171,7 +128,7 @@ function fillingEmptySpaces(grid) {
     return grid;
 }
 let myGrid = createGrid(13, 13);
-let myWords = ["Math", "JavaScript", "Objects", "Array", "Codding", "Cycle"];
+let myWords = ["math", "javascript", "objects", "array", "codding", "cycle"];
 placeWord(myGrid, myWords);
 for (let i = 0; i < myGrid.length; i++) {
     let rowString = myGrid[i].map(cell => cell === "" ? "." : cell).join(" ");
