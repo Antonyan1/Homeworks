@@ -10,6 +10,7 @@ function createGrid (lines, columns) {
 }
 
 function placeWord(grid ,words) {
+    let result = grid;
     let gridSize = grid[1].length * grid.length;
     let directions = {
     up:        [-1,  0],
@@ -21,7 +22,6 @@ function placeWord(grid ,words) {
     downLeft:  [ 1, -1],
     downRight: [ 1,  1]
     };
-    
     for (let index = 0; index < words.length; index++) {
         for (let findDirection = 0; findDirection < gridSize; findDirection++) {
             let randomRow = Math.floor(Math.random() * grid.length);
@@ -58,7 +58,8 @@ function placeWord(grid ,words) {
             }
         }
     }
-    return grid;
+    
+    return result;
 }
 function findWord(grid, word) {
     let directions = {
@@ -76,11 +77,10 @@ function findWord(grid, word) {
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[row].length; col++) {        
             if(grid[row][col] === word[0]) {
-                
                 for (let chooseDirection = 0; chooseDirection < dirNames.length; chooseDirection++) {
                     let dirName = dirNames[chooseDirection];    
-                    
-                    let [dirRow, dirCol] = directions[dirName];
+                    let dirRow = directions[dirName][0];
+                    let dirCol = directions[dirName][1];
                     let weFound = true;
 
                     let nowsRow = row;
@@ -100,7 +100,9 @@ function findWord(grid, word) {
                     if (weFound === true) {
                         return {
                             found: true,
+                            word: word,
                             start: [row, col],
+                            end: [nowsRow, nowsCol],
                             direction: dirName
                         };
                     }
@@ -110,6 +112,25 @@ function findWord(grid, word) {
     }
     return {
         found: false
+    }
+}
+function gridStats(grid) {
+    let result  = "";
+    let gridSize = grid.length * grid[0].length;
+    let filled = 0;
+
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[row].length; col++) {
+            if (grid[row][col] !== "") {
+                filled++;
+            }
+        }
+    }
+    let emptycells = gridSize - filled
+    return {
+    totalCells: gridSize,
+    filledCells: filled,
+    emptyCells: emptycells
     }
 }
 function fillingEmptySpaces(grid) {
@@ -134,7 +155,7 @@ for (let i = 0; i < myGrid.length; i++) {
     let rowString = myGrid[i].map(cell => cell === "" ? "." : cell).join(" ");
     console.log(rowString);
 }
-console.log(findWord(myGrid, "Array"));
+console.log(findWord(myGrid, "array"));
 fillingEmptySpaces(myGrid);
 for (let i = 0; i < myGrid.length; i++) {
     console.log(myGrid[i].join(" "));
