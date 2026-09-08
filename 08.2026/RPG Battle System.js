@@ -36,16 +36,36 @@ class Character {
         }
         return "you have no potion";
     }
+    takeDamage(damage) {
+        this.health = this.health - damage;
+        if (this.health < 0) {
+            this.health = 0;
+        }
+    }
+    takeTurn(target) {
+        let damage = this.attack;
+        damage = damage - target.defense;
+
+        if (damage < 1) {
+            damage = 1;
+        }
+
+        target.takeDamage(damage);
+
+        return this.name + " attacked " + target.name + " and figured it out " + damage + " damage";
+    }
     equip(itemName) {
         for (let f = 0; f < this.inventory.length; f++) {
             if (this.inventory[f].name === itemName) {
                 if (this.inventory[f].type === "weapon") {
-                    this.attack = this.attack +  this.inventory[f].value;
+                    this.attack = this.attack + this.inventory[f].value;
+                    this.inventory.splice(f, 1);
+                    return;
                 } else if (this.inventory[f].type === "armor") {
                     this.defense = this.defense + this.inventory[f].value;
+                    this.inventory.splice(f, 1);
+                    return;
                 }
-                this.inventory.splice(f, 1);
-                return;
             }
         }
     }
@@ -58,11 +78,12 @@ class Warrior extends Character {
     powerStrike(target) {
         if (this.rage >= 10) {
             let damage = this.attack * 2;
-            target.health = target.health - damage;
-            if (target.health < 0) {
-                target.health = 0;
+            damage = damage - target.defense
+            if (damage < 1) {
+                damage = 1;
             }
 
+            target.takeDamage(damage);
             this.rage = this.rage - 10;
         }
     }
@@ -73,6 +94,13 @@ class Warrior extends Character {
         }
         this.rage = this.rage + 5;
     }
+    takeTurn(target) {
+       if (this.rage >= 10) {
+            this.powerStrike(target);
+            return this.name + " used Power Strike on " + target.name;
+        }
+        return super.takeTurn(target);
+    }
 }
 class Mage extends Character {
     constructor(name, health, attack, defense, mana) {
@@ -81,19 +109,19 @@ class Mage extends Character {
     }
     castSpell(target, manaCost, damage) {
         if (this.mana >= manaCost) {
-            if (target === warrior) {
-                target.takeDamage(damage);
-            } else {
-                target.health = target.health - damage;
-
-                if (target.health < 0) {
-                    target.health = 0;
-                }
-            }
+            target.takeDamage(damage);
             this.mana = this.mana - manaCost;
         } else {
             return "Not enough mana";
         }
+    }
+    takeTurn(target) {
+        if (this.mana >= 10) {
+            this.castSpell(target, 10, 25);
+            return this.name + " used spell on " + target.name;
+        }
+
+        return super.takeTurn(target);
     }
 }
 class Rogue extends Character {
@@ -104,22 +132,21 @@ class Rogue extends Character {
     }
     backstab(target) {
         let checkCriticChance = Math.random();
-        let damage;
+        let damage = this.attack;
+        damage = damage - target.defense
 
+        if (damage < 1) {
+            damage = 1;
+        }
         if (checkCriticChance < this.critChance) {
-            damage = this.attack * 3;
-        } else {
-            damage = this.attack;
+            damage = damage * 3;
         }
-        if (target === warrior) {
-            target.takeDamage(damage);
-        } else {
-            target.health = target.health - damage;
 
-            if (target.health < 0) {
-                target.health = 0;
-            }
-        }
+        target.takeDamage(damage);
+    }
+    takeTurn(target) {
+        this.backstab(target);
+        return this.name + " used Backstab on " + target.name;
     }
 }
 class Battle {
@@ -128,86 +155,36 @@ class Battle {
         this.player2 = player2;
         this.log = [];
     }
-    attackTurn(attacker, defender) {
-        let damage = attacker.attack - defender.defense;
-        
-        if (damage < 1) {
-            damage = 1;
-        }
-        
-        if (defender === warrior) {
-            defender.takeDamage(damage);
-        } else {
-            defender.health = defender.health - damage;
-            if (defender.health < 0) {
-                defender.health = 0;
-            }
-        }
+    takeTurn (attacker, defender) {
+        let fightInformation = attacker.takeTurn(defender);
 
-        let fightInformation = attacker.name + " attacked " + defender.name + " and dealt " + damage + " damage";
         this.log.push(fightInformation);
         console.log(fightInformation);
     }
-    fight() {
+    fight () {
         while (this.player1.isAlive() && this.player2.isAlive()) {
-            if (this.player1 === warrior && warrior.rage >= 10) {
-                warrior.powerStrike(this.player2);
-                    let info = warrior.name + " used Power Strike on " + this.player2.name;
-                    this.log.push(info);
-                    console.log(info);
-            } else if (this.player1 === mage && mage.mana >= 10) {
-                mage.castSpell(this.player2, 10, 25);
+            this.takeTurn(this.player1, this.player2);
 
-                let info = mage.name + " used spell on " + this.player2.name;
-                this.log.push(info);
-                console.log(info);
-            } else if (this.player1 === rogue) {
-                rogue.backstab(this.player2);
-                let info = rogue.name + " used Backstab on " + this.player2.name;
-                this.log.push(info);
-                console.log(info);
-            } else {
-                this.attackTurn(this.player1, this.player2)
-            }
             console.log(this.player1.info());
             console.log(this.player2.info());
+
             if (!this.player2.isAlive()) {
-               break;
+                break;
             }
-            if (this.player2 === warrior && warrior.rage >= 10) {
-                warrior.powerStrike(this.player1);
 
-                let info = warrior.name + " used Power Strike on " + this.player1.name;
-                this.log.push(info);
-                console.log(info);
-            } else if (this.player2 === mage && mage.mana >= 10) {
-                mage.castSpell(this.player1, 10, 25);
-
-                let info = mage.name + " used spell on " + this.player1.name;
-                this.log.push(info);
-                console.log(info);
-            } else if (this.player2 === rogue) {
-                rogue.backstab(this.player1);
-
-                let info = rogue.name + " used Backstab on " + this.player1.name;
-                this.log.push(info);
-                console.log(info);
-
-            } else {
-                this.attackTurn(this.player2, this.player1)
-            }
+            this.takeTurn(this.player2, this.player1);
             console.log(this.player1.info());
             console.log(this.player2.info());
             if (!this.player1.isAlive()) {
-               break;
+                
+                break;
             }
         }
-
         let winner;
-        if (this.player1.isAlive()) {
-            winner = this.player1;
-        } else {
+        if (!this.player1.isAlive()) {
             winner = this.player2;
+        } else {
+            winner = this.player1;
         }
         this.log.push("our winner is " + winner.name);
         console.log("our winner is " + winner.name);
